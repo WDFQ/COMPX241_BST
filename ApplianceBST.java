@@ -6,7 +6,13 @@ public class ApplianceBST {
 
 
     public void insert(Appliance a){
+       // If the root is null, set the root to a new node
+        if (root == null) {
+            root = new Node(a);
+        } 
+        else {
         insertSubtree(root, a);
+        }
     }
 
 
@@ -131,6 +137,8 @@ public class ApplianceBST {
      */
     public void remove(Appliance a){
         Node currentNode = root;
+        Node previousNode = null;
+        int leftRightIndicator = 0; // 0 = left, 1 = right
         
         //check to see if node is in the tree
         if(search(a)){
@@ -140,42 +148,82 @@ public class ApplianceBST {
 
                 //move down to the right subtree if the value is larger than current node
                 if (a.compareTo(currentNode.value) > 0){
+                    previousNode = currentNode;
                     currentNode = currentNode.right;
+                    leftRightIndicator = 0;
                 }
                 //move down to the left subtree if the value is smaller than the current node
                 else if(a.compareTo(currentNode.value)< 0){
+                    previousNode = currentNode;
                     currentNode = currentNode.left;
+                    leftRightIndicator = 1;
+
                 }
                 
             }
 
             //if the target node is a leaf node
             if(currentNode.left == null && currentNode.right == null){
-                currentNode = null;
+                if(currentNode == root){
+                    root = null;
+                }
+                
+                if (leftRightIndicator == 0){
+                    previousNode.right = null;
+                }
+                else if(leftRightIndicator == 1){
+                    previousNode.left = null;
+                    
+                }
             }
             // if the target node has one child
-            else if (currentNode.left == null || currentNode.right == null) {
-                if (currentNode.left != null){
-                    currentNode = currentNode.left;
+            else if (currentNode.left == null ^ currentNode.right == null) {
+                //if the current node came from the right subtree of its parent
+                if (leftRightIndicator == 0) {
+                    //if the current node has a left child, set the right child of the parent to the left child of the current node
+                    if (currentNode.left != null){
+                        previousNode.right = currentNode.left;
+                    }
+                    //if the current node has a right child, set the right child of the parent to the right child of the current node
+                    else if(currentNode.right != null){
+                        previousNode.right = currentNode.right;
+                    }
                 }
-                else if(currentNode.right != null){
-                    currentNode = currentNode.right;
+                else if (leftRightIndicator == 1) {
+                    if (currentNode.left != null){
+                        previousNode.left = currentNode.left;
+                    }
+                    else if(currentNode.right != null){
+                        previousNode.left = currentNode.right;
+                    }
                 }
+                
             }
-            //if the target node has two children
-            else{
-                //go to the right subtree and find the left most node of that subtree
+            //if the target node has two  children
+            else {
+                //Go to the right subtree and find the leftmost node of that subtree
+                previousNode = currentNode; // Track the parent of the leftmost node
                 Node leftMostNode = currentNode.right;
-                while(leftMostNode.left != null){
+            
+                while (leftMostNode.left != null) {
+                    previousNode = leftMostNode;
                     leftMostNode = leftMostNode.left;
                 }
-
-                //replace the target node with the left most node of the right subtree
+            
+                // Replace the target node's value with the leftmost node's value
                 currentNode.value = leftMostNode.value;
+            
+                // Remove the leftmost node from its original position
+                if (previousNode.left == leftMostNode) {
+                    //if the leftmost node is a left child, relink its parent's left pointer to the right child of the leftmost node
+                    previousNode.left = leftMostNode.right;
+                } 
+                else {
+                    //if the leftmost node is the immediate right child of the current node
+                    previousNode.right = leftMostNode.right;
+                }
             }
 
-
-            
         }
         else{
             System.out.println("Appliance not found in the tree.");
