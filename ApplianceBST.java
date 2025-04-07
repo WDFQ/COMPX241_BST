@@ -3,16 +3,22 @@ public class ApplianceBST {
     // root node of the tree
     public Node root;
 
+
+
     public void insert(Appliance a){
         insertSubtree(root, a);
     }
 
+
+
+
+
     /**
      * the insert method that inserts a new appliance into the tree
      * 
-     * @param currentRoot
-     * @param a
-     * @return
+     * @param currentRoot the current root of the tree
+     * @param a the appliance to be inserted
+     * @return the current root of the tree
      */
     public Node insertSubtree(Node currentRoot, Appliance a){
         // When the tree is null
@@ -34,6 +40,9 @@ public class ApplianceBST {
     }
 
 
+
+
+
     /**
      * calls recursive method to search for an appliance in the tree
      * 
@@ -44,12 +53,15 @@ public class ApplianceBST {
         return searchSubtree(root, a);
     }
 
+
+
+
     /**
      * the recursive method that searches the subtrees for the appliance
      * 
-     * @param currentRoot
-     * @param a
-     * @return
+     * @param currentRoot the current root of the tree
+     * @param a the appliance to be searched for
+     * @return true if the appliance is found, false otherwise
      */
     public boolean searchSubtree(Node currentRoot, Appliance a){
         // Checks if the root is null
@@ -74,6 +86,9 @@ public class ApplianceBST {
     }
 
 
+
+
+
     /**
      * calls the recursive print method to print the tree in order
      */
@@ -83,9 +98,13 @@ public class ApplianceBST {
     }
 
 
+
+
+
     /**
      * the recursive method that prints the tree in order
-     * @param currentRoot
+     * @param currentRoot the current root of the tree
+     * @return the current root of the tree
      */
     public void printR(Node currentRoot){
         if(currentRoot == null){
@@ -103,9 +122,12 @@ public class ApplianceBST {
     }
 
 
+
+
+
     /**
      * calls the recursive remove method to remove an appliance from the tree
-     * @param a
+     * @param a The appliance to be removed
      */
     public void remove(Appliance a){
         Node currentNode = root;
@@ -160,10 +182,25 @@ public class ApplianceBST {
         }
     }
 
+
+
+
+    /**
+     * calls the recursive method to get the height of the tree
+     * @return the height of the tree
+     */
     public int getHeight(){
         return getHeightSubtree(root);
     }
 
+
+
+
+    /**
+     * the recursive method that gets the height of the tree
+     * @param currentRoot the current root of the tree
+     * @return the height of the tree
+     */
     public int getHeightSubtree(Node currentRoot){
         //if the tree is empty return -1
         if(currentRoot == null){
@@ -175,6 +212,39 @@ public class ApplianceBST {
         }
     }
 
+    /**
+     * finds the minimum value in the tree
+     * @return the minimum value in the tree
+     */
+    public Appliance getMinimum(){
+        if(root == null){
+            return null;
+        }
+        else{
+            Node currentNode = root;
+            while (currentNode.left != null){
+                currentNode = currentNode.left;
+            }
+            return currentNode.value;
+        }
+        
+    }
+
+    /**
+     * finds the maximum value in the tree
+     * @return the maximum value in the tree
+     */
+    public Appliance getMaximum(){
+        if(root == null){
+            return null;
+        }
+        else{
+            Node currentNode = root;
+            while (currentNode.right != null){
+                currentNode = currentNode.right;
+            }
+            return currentNode.value;
+        }
 
    
 }
