@@ -245,6 +245,7 @@ public class ApplianceBST {
             }
             return currentNode.value;
         }
+    }
 
    
 }
