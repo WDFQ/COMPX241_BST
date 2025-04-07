@@ -3,6 +3,10 @@ public class ApplianceBST {
     // root node of the tree
     public Node root;
 
+    public void insert(Appliance a){
+        insertSubtree(root, a);
+    }
+
     /**
      * the insert method that inserts a new appliance into the tree
      * 
@@ -10,7 +14,7 @@ public class ApplianceBST {
      * @param a
      * @return
      */
-    public Node insert(Node currentRoot, Appliance a){
+    public Node insertSubtree(Node currentRoot, Appliance a){
         // When the tree is null
         if (currentRoot == null){
             currentRoot = new Node(a);
@@ -18,12 +22,12 @@ public class ApplianceBST {
 
         // If the value is smaller then add it to the left subtree
         else if (a.compareTo(currentRoot.value) < 0){
-            currentRoot.left = insert(currentRoot.left, a);
+            currentRoot.left = insertSubtree(currentRoot.left, a);
         }
 
         // If the value is greater then add it to the right subtree
         else if (a.compareTo(currentRoot.value) > 0){
-            currentRoot.right = insert(currentRoot.right, a);
+            currentRoot.right = insertSubtree(currentRoot.right, a);
         }
 
         return currentRoot;
@@ -70,15 +74,19 @@ public class ApplianceBST {
     }
 
 
-
+    /**
+     * calls the recursive print method to print the tree in order
+     */
     public void print(){
         // Calls the recursive print method
         printR(root);
     }
 
 
-
-
+    /**
+     * the recursive method that prints the tree in order
+     * @param currentRoot
+     */
     public void printR(Node currentRoot){
         if(currentRoot == null){
             return;
@@ -95,6 +103,10 @@ public class ApplianceBST {
     }
 
 
+    /**
+     * calls the recursive remove method to remove an appliance from the tree
+     * @param a
+     */
     public void remove(Appliance a){
         Node currentNode = root;
         
@@ -128,12 +140,38 @@ public class ApplianceBST {
                     currentNode = currentNode.right;
                 }
             }
+            //if the target node has two children
+            else{
+                //go to the right subtree and find the left most node of that subtree
+                Node leftMostNode = currentNode.right;
+                while(leftMostNode.left != null){
+                    leftMostNode = leftMostNode.left;
+                }
+
+                //replace the target node with the left most node of the right subtree
+                currentNode.value = leftMostNode.value;
+            }
 
 
             
         }
         else{
             System.out.println("Appliance not found in the tree.");
+        }
+    }
+
+    public int getHeight(){
+        return getHeightSubtree(root);
+    }
+
+    public int getHeightSubtree(Node currentRoot){
+        //if the tree is empty return -1
+        if(currentRoot == null){
+            return -1;
+        }
+        //use recursion to count the height from bottom to top
+        else{
+            return Math.max(getHeightSubtree(currentRoot.left), getHeightSubtree(currentRoot.right)) + 1;
         }
     }
 
