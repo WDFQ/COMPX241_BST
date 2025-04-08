@@ -99,7 +99,6 @@ public class ApplianceBST {
      * calls the recursive print method to print the tree in order
      */
     public void print(){
-        // Calls the recursive print method
         printR(root);
     }
 
@@ -112,19 +111,29 @@ public class ApplianceBST {
      * @param currentRoot the current root of the tree
      * @return the current root of the tree
      */
-    public void printR(Node currentRoot){
-        if(currentRoot == null){
+    public void printR(Node currentNode){
+        if(currentNode == null){
             return;
         }
-        
-        //print the parent node
-        
 
-        //print the left child node
-        if(currentRoot.left != null){
-
+        printR(currentNode.left); // Traverse left subtree
+        System.out.println(currentNode.value); // Visit current node
+        if(currentNode.left == null){
+            System.out.println("|   null");
         }
-            
+        else{
+            System.out.println("|   " + currentNode.left.value);
+        }
+        if(currentNode.right == null){
+            System.out.println("|   null");
+        }
+        else{
+            System.out.println("|   " + currentNode.right.value);
+        }
+        System.out.println("------------------");
+        printR(currentNode.left); // Traverse right subtree
+        printR(currentNode.right); // Traverse right subtree
+
     }
 
 
@@ -167,7 +176,7 @@ public class ApplianceBST {
                 if(currentNode == root){
                     root = null;
                 }
-                
+
                 if (leftRightIndicator == 0){
                     previousNode.right = null;
                 }

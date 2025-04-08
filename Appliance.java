@@ -22,6 +22,7 @@ public class Appliance {
         return name;
     }   
 
+    @Override
     public String toString() {
         return  category + "  |  " + name + "  |  " + price;
     }

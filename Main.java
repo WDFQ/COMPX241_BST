@@ -41,6 +41,8 @@ public class Main {
         System.out.println("Maximum appliance: " + max);
 
         System.out.println("Height of the tree: " + applianceBST.getHeight());
+
+        applianceBST.print();
         
     }
 }
