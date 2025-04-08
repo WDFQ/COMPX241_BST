@@ -26,7 +26,7 @@ public class ApplianceBST {
      * @param a the appliance to be inserted
      * @return the current root of the tree
      */
-    public Node insertSubtree(Node currentRoot, Appliance a){
+    private Node insertSubtree(Node currentRoot, Appliance a){
         // When the tree is null
         if (currentRoot == null){
             currentRoot = new Node(a);
@@ -69,7 +69,7 @@ public class ApplianceBST {
      * @param a the appliance to be searched for
      * @return true if the appliance is found, false otherwise
      */
-    public boolean searchSubtree(Node currentRoot, Appliance a){
+    private boolean searchSubtree(Node currentRoot, Appliance a){
         // Checks if the root is null
         if (currentRoot == null){
             return false;
@@ -100,6 +100,7 @@ public class ApplianceBST {
      */
     public void print(){
         printR(root);
+
     }
 
 
@@ -111,27 +112,15 @@ public class ApplianceBST {
      * @param currentRoot the current root of the tree
      * @return the current root of the tree
      */
-    public void printR(Node currentNode){
+    private void printR(Node currentNode){
         if(currentNode == null){
             return;
         }
-
+        
         printR(currentNode.left); // Traverse left subtree
-        System.out.println(currentNode.value); // Visit current node
-        if(currentNode.left == null){
-            System.out.println("|   null");
-        }
-        else{
-            System.out.println("|   " + currentNode.left.value);
-        }
-        if(currentNode.right == null){
-            System.out.println("|   null");
-        }
-        else{
-            System.out.println("|   " + currentNode.right.value);
-        }
-        System.out.println("------------------");
-        printR(currentNode.left); // Traverse right subtree
+
+        System.out.println(currentNode.value); // Print the current node's value
+        
         printR(currentNode.right); // Traverse right subtree
 
     }
@@ -258,10 +247,10 @@ public class ApplianceBST {
      * @param currentRoot the current root of the tree
      * @return the height of the tree
      */
-    public int getHeightSubtree(Node currentRoot){
+    private int getHeightSubtree(Node currentRoot){
         //if the tree is empty return -1
         if(currentRoot == null){
-            return -1;
+            return 0;
         }
         //use recursion to count the height from bottom to top
         else{
@@ -301,6 +290,27 @@ public class ApplianceBST {
                 currentNode = currentNode.right;
             }
             return currentNode.value;
+        }
+    }
+
+    public void printCategory(String category){
+        printCategorySubtree(root, category);
+    }
+
+    private void printCategorySubtree(Node currentNode, String category){
+        if (currentNode == null){
+            return;
+        }
+
+        //compare with current node 
+        if(currentNode.value.getCategory().equals(category)){
+            System.out.println(currentNode.value);
+        }
+        else if(currentNode.value.getCategory().compareTo(category) < 0){
+            printCategorySubtree(currentNode.left, category);
+        }
+        else{
+            printCategorySubtree(currentNode.right, category);
         }
     }
 
