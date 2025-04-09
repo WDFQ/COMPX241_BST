@@ -6,8 +6,8 @@ public class Main {
         // Create some appliances
         Appliance standFreezer = new Appliance("Fridge", 1000.20f, "stand freezer");
         Appliance standerFreezest = new Appliance("Fridge", 300.00f, "stander freezest");
-        Appliance candle = new Appliance("Oven ", 100.20f, "candle"); 
-        Appliance gasStove = new Appliance("Oven ", 10200.20f, "Gas stove"); 
+        Appliance candle = new Appliance("Oven", 100.20f, "candle"); 
+        Appliance gasStove = new Appliance("Oven", 10200.20f, "Gas stove"); 
         Appliance heatPump = new Appliance("Aircon", 1030.20f, "Heat pump"); 
         Appliance random = new Appliance("Fridge", 1030.20f, "Heat"); 
         
@@ -45,8 +45,8 @@ public class Main {
         
 
        
-        //applianceBST.printCategory(random.getCategory());
-        applianceBST.printCategoryWithPriceRange("Fridge", 200, 10000);
+        //applianceBST.printCategory(candle.getCategory());
+        applianceBST.printCategoryBelowPrice("Oven", 500000);
         //System.out.println(random.getCategory());
     }
 }

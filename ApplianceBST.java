@@ -6,6 +6,18 @@ public class ApplianceBST {
     public Node root;
     private int recursiveIdentifier;
 
+    //enum to keep track of the type of search we are doing
+    private enum recursiveIds{
+        CATEGORYONLY, PRICERANGE, ABOVEPRICE, BELOWPRICE;
+    }
+    recursiveIds recursiveId = recursiveIds.CATEGORYONLY;
+
+
+    /**
+     * insert method that inserts a new appliance into the tree
+     *
+     * @param a the appliance to be inserted
+     */
     public void insert(Appliance a){
        // If the root is null, set the root to a new node
         if (root == null) {
@@ -16,12 +28,8 @@ public class ApplianceBST {
         }
     }
 
-
-
-
-
     /**
-     * the insert method that inserts a new appliance into the tree
+     * the recursive method that insert method calls
      * 
      * @param currentRoot the current root of the tree
      * @param a the appliance to be inserted
@@ -47,9 +55,6 @@ public class ApplianceBST {
     }
 
 
-
-
-
     /**
      * calls recursive method to search for an appliance in the tree
      * 
@@ -59,9 +64,6 @@ public class ApplianceBST {
         // Calls the recursive search method
         return searchSubtree(root, a);
     }
-
-
-
 
     /**
      * the recursive method that searches the subtrees for the appliance
@@ -93,9 +95,6 @@ public class ApplianceBST {
     }
 
 
-
-
-
     /**
      * calls the recursive print method to print the tree in order
      */
@@ -103,10 +102,6 @@ public class ApplianceBST {
         printR(root);
 
     }
-
-
-
-
 
     /**
      * the recursive method that prints the tree in order
@@ -118,16 +113,14 @@ public class ApplianceBST {
             return;
         }
         
-        printR(currentNode.left); // Traverse left subtree
-
-        System.out.println(currentNode.value); // Print the current node's value
-        
-        printR(currentNode.right); // Traverse right subtree
+        //traverse left subtree
+        printR(currentNode.left); 
+        //print the current node
+        System.out.println(currentNode.value); 
+        //traverse right subtree
+        printR(currentNode.right); 
 
     }
-
-
-
 
 
     /**
@@ -156,9 +149,7 @@ public class ApplianceBST {
                     previousNode = currentNode;
                     currentNode = currentNode.left;
                     leftRightIndicator = 1;
-
                 }
-                
             }
 
             //if the target node is a leaf node
@@ -166,13 +157,13 @@ public class ApplianceBST {
                 if(currentNode == root){
                     root = null;
                 }
-
+                //if we came from the right subtree of the parent node set the right child of the previous node to null
                 if (leftRightIndicator == 0){
                     previousNode.right = null;
                 }
+                //if we came from the left subtree of the parent node set the left child of the previous node to null
                 else if(leftRightIndicator == 1){
                     previousNode.left = null;
-                    
                 }
             }
             // if the target node has one child
@@ -208,7 +199,7 @@ public class ApplianceBST {
                     previousNode = leftMostNode;
                     leftMostNode = leftMostNode.left;
                 }
-            
+
                 // Replace the target node's value with the leftmost node's value
                 currentNode.value = leftMostNode.value;
             
@@ -222,14 +213,11 @@ public class ApplianceBST {
                     previousNode.right = leftMostNode.right;
                 }
             }
-
         }
         else{
             System.out.println("Appliance not found in the tree.");
         }
     }
-
-
 
 
     /**
@@ -239,9 +227,6 @@ public class ApplianceBST {
     public int getHeight(){
         return getHeightSubtree(root);
     }
-
-
-
 
     /**
      * the recursive method that gets the height of the tree
@@ -259,6 +244,7 @@ public class ApplianceBST {
         }
     }
 
+
     /**
      * finds the minimum value in the tree
      * @return the minimum value in the tree
@@ -274,7 +260,6 @@ public class ApplianceBST {
             }
             return currentNode.value;
         }
-        
     }
 
     /**
@@ -294,13 +279,14 @@ public class ApplianceBST {
         }
     }
 
+
     /**
      * prints all appliances in the tree that belong to a specific category in order of price
      * @param category the category to search for
      */
     public void printCategory(String category){
         //print category = 1, print category with price = 2, print category above price = 3, print category below price = 4
-        recursiveIdentifier = 1;
+        recursiveId = recursiveIds.CATEGORYONLY;
         printCategorySubtree(root, category, -1, -1);
     }
 
@@ -312,17 +298,26 @@ public class ApplianceBST {
      */
     public void printCategoryWithPriceRange(String c, float min, float max){
         
-        recursiveIdentifier = 2;
+        recursiveId = recursiveIds.PRICERANGE;
         printCategorySubtree(root, c, min, max);
     }
-
+    /**
+     * prints all appliances in the tree that belong to a specific category that is above a given price
+     * @param c the category to search for
+     * @param min the minimum price
+     */
     public void printCategoryAbovePrice(String c, float min){
-        recursiveIdentifier = 3;
+        recursiveId = recursiveIds.ABOVEPRICE;
         printCategorySubtree(root, c, min, -1);
     }
 
+    /**
+     * prints all appliances in the tree that belong to a specific category that is below a given price
+     * @param c the category to search for
+     * @param max the maximum price
+     */
     public void printCategoryBelowPrice(String c, float max){
-        recursiveIdentifier = 4;
+        recursiveId = recursiveIds.BELOWPRICE;
         printCategorySubtree(root, c, -1, max);
     }
     
@@ -333,22 +328,21 @@ public class ApplianceBST {
      * @param category the category to search for
      */
     private void printCategorySubtree(Node currentNode, String category, float min, float max){
+        //if the tree is empty return
         if (currentNode == null){
             return;
         }
 
         //compare with current node 
         if(currentNode.value.getCategory().equals(category)){
-            
             //checking to see which kind of filter we need
-            if(recursiveIdentifier == 1){
-                //recurse the left subtree
+            if(recursiveId == recursiveIds.CATEGORYONLY){
+                //process left subtree first, then print current node, then process right subtree
                 printCategorySubtree(currentNode.left, category, min, max);
                 System.out.println(currentNode.value);
-                //recurse the right subtree
                 printCategorySubtree(currentNode.right, category, min, max);
             }
-            else if (recursiveIdentifier == 2) {
+            else if (recursiveId == recursiveIds.PRICERANGE) {
                 //check for the items within the current category that is between the given min and max price
                 if(currentNode.value.getPrice() > min && currentNode.value.getPrice() < max){
                     printCategorySubtree(currentNode.left, category, min, max);
@@ -356,15 +350,15 @@ public class ApplianceBST {
                     printCategorySubtree(currentNode.right, category, min, max);
                 }
                 else if(currentNode.value.getPrice() > max){
-                    //if current node is less than target category, go to the left subtree
+                    //if the current node's price is greater than the max price, go to the left subtree
                     printCategorySubtree(currentNode.left, category, min, max);
                 }
                 else{
-                    //if current node is greater than target category, go to the right subtree
+                    //if the current node's price is less than the min price, go to the right subtree
                     printCategorySubtree(currentNode.right, category, min, max);
                 }
             }
-            else if (recursiveIdentifier == 3) {
+            else if (recursiveId == recursiveIds.ABOVEPRICE) {
                 //check for items that is above the given price
                 if(currentNode.value.getPrice() > min){
                     printCategorySubtree(currentNode.left, category, min, max);
@@ -372,11 +366,11 @@ public class ApplianceBST {
                     printCategorySubtree(currentNode.right, category, min, max);
                 }
                 else{
-                    //if current node is greater than target category, go to the right subtree
+                    //if current node is less than target category, go to the right subtree
                     printCategorySubtree(currentNode.right, category, min, max);
                 }
             }
-            else{
+            else if (recursiveId == recursiveIds.BELOWPRICE){
                 //check for items that is below the given price
                 if(currentNode.value.getPrice() < max){
                     printCategorySubtree(currentNode.left, category, min, max);
@@ -384,21 +378,17 @@ public class ApplianceBST {
                     printCategorySubtree(currentNode.right, category, min, max);
                 }
                 else{
-                    //if current node is greater than target category, go to the right subtree
+                    //if current node is greater than target category, go to the left subtree
                     printCategorySubtree(currentNode.left, category, min, max);
                 }
             }
-            
-
-            
-
         }
         else if(currentNode.value.getCategory().compareTo(category) < 0){
-            //if current node is less than target category, go to the left subtree
+            //if current node is less than target category, go to the right subtree
             printCategorySubtree(currentNode.right, category, min, max);
         }
         else{
-            //if current node is greater than target category, go to the right subtree
+            //if current node is greater than target category, go to the left subtree
             printCategorySubtree(currentNode.left, category, min, max);
         }
     }
