@@ -21,6 +21,7 @@ public class Main {
         applianceBST.insert(candle);
         applianceBST.insert(gasStove);
         applianceBST.insert(heatPump);
+        applianceBST.insert(random);
         
         // Search for an appliance
         boolean found = applianceBST.search(standFreezer);
@@ -39,20 +40,13 @@ public class Main {
 
         System.out.println("Minimum appliance: " + min);
         System.out.println("Maximum appliance: " + max);
-
         System.out.println("Height of the tree: " + applianceBST.getHeight());
 
-        // applianceBST.print();
         
 
-        applianceBST.printCategory("Fridge");
-
-        applianceBST.insert(random);
-
-        StrBSTPrinter.printNode(applianceBST.root);
-
-        applianceBST.remove(standFreezer);
-
-        StrBSTPrinter.printNode(applianceBST.root);
+       
+        //applianceBST.printCategory(random.getCategory());
+        applianceBST.printCategoryWithPriceRange("Fridge", 200, 10000);
+        //System.out.println(random.getCategory());
     }
 }
