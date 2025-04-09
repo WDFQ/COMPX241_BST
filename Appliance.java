@@ -24,7 +24,11 @@ public class Appliance {
 
     @Override
     public String toString() {
-        return  category + "  |  " + name + "  |  " + price;
+        // Adds padding to the category and name
+        String paddedCategory = String.format("%-15s", category); // 15-character padding
+        String paddedName = String.format("%-20s", name);         // 20-character padding
+
+        return paddedCategory + "|" + paddedName + "|" + price;
     }
 
     public int compareTo(Appliance other) {

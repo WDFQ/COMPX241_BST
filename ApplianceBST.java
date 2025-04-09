@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ApplianceBST {
 
     // root node of the tree
@@ -293,10 +295,19 @@ public class ApplianceBST {
         }
     }
 
+    /**
+     * prints all appliances in the tree that belong to a specific category in order of price
+     * @param category the category to search for
+     */
     public void printCategory(String category){
         printCategorySubtree(root, category);
     }
 
+    /**
+     * the recursive method that prints all appliances in the tree that belong to a specific category in order of price
+     * @param currentNode the current node of the tree
+     * @param category the category to search for
+     */
     private void printCategorySubtree(Node currentNode, String category){
         if (currentNode == null){
             return;
@@ -304,17 +315,46 @@ public class ApplianceBST {
 
         //compare with current node 
         if(currentNode.value.getCategory().equals(category)){
+
+            //traverse to the left first to print any appliances that has a lower price, then process the current, then process any right. 
+            //this makes sure that we have the appliances in order of price
+            printCategorySubtree(currentNode.left, category);
             System.out.println(currentNode.value);
+            printCategorySubtree(currentNode.right, category);
+
         }
         else if(currentNode.value.getCategory().compareTo(category) < 0){
+            //if current node is less than target category, go to the left subtree
             printCategorySubtree(currentNode.left, category);
         }
         else{
+            //if current node is greater than target category, go to the right subtree
             printCategorySubtree(currentNode.right, category);
         }
     }
 
-   
+
+
+    public void printCategoryWithPriceRange(String c, float min, float max){
+        Node curentNode = root;
+        ArrayList<Appliance> appliances = new ArrayList<>();
+
+        appliances = printCategoryWithPriceRangeSubTree(curentNode, appliances, c, min, max);
+
+    }
+
+    private ArrayList printCategoryWithPriceRangeSubTree(Node currentNode, ArrayList nodeList, String c, float min, float max){
+        if (currentNode == null){
+            return nodeList;
+        }
+        
+        if(currentNode.value.getCategory())
+
+       
+
+    }
+
+
 }
 
 

@@ -9,6 +9,7 @@ public class Main {
         Appliance candle = new Appliance("Oven ", 100.20f, "candle"); 
         Appliance gasStove = new Appliance("Oven ", 10200.20f, "Gas stove"); 
         Appliance heatPump = new Appliance("Aircon", 1030.20f, "Heat pump"); 
+        Appliance random = new Appliance("Fridge", 1030.20f, "Heat"); 
         
         
 
@@ -28,9 +29,8 @@ public class Main {
         // Print the BST in order
         StrBSTPrinter.printNode(applianceBST.root);
 
-        applianceBST.remove(gasStove);
+        //applianceBST.remove(gasStove);
 
-        StrBSTPrinter.printNode(applianceBST.root);
 
         applianceBST.getHeight();
 
@@ -42,7 +42,17 @@ public class Main {
 
         System.out.println("Height of the tree: " + applianceBST.getHeight());
 
-        applianceBST.print();
+        // applianceBST.print();
         
+
+        applianceBST.printCategory("Fridge");
+
+        applianceBST.insert(random);
+
+        StrBSTPrinter.printNode(applianceBST.root);
+
+        applianceBST.remove(standFreezer);
+
+        StrBSTPrinter.printNode(applianceBST.root);
     }
 }
