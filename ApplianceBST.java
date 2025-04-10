@@ -129,13 +129,15 @@ public class ApplianceBST {
     public void remove(Appliance a){
         Node currentNode = root;
         Node previousNode = null;
-        int leftRightIndicator = 0; // 0 = left, 1 = right
+
+        // 0 = left, 1 = right
+        int leftRightIndicator = 0; 
         
         //check to see if node is in the tree
         if(search(a)){
 
             //while we're not at the goal node
-            while(!currentNode.value.equals(a)){
+            while(a.compareTo(currentNode.value) != 0){
 
                 //move down to the right subtree if the value is larger than current node
                 if (a.compareTo(currentNode.value) > 0){

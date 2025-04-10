@@ -11,7 +11,7 @@ public class Main {
         Appliance heatPump = new Appliance("Aircon", 1030.20f, "Heat pump"); 
         Appliance random = new Appliance("Fridge", 1030.20f, "Heat"); 
         
-        
+        Appliance standFreezerDuplicate = new Appliance("Fridge", 1000.20f, "stand freezer");
 
         // Insert appliances into the BST
         applianceBST.insert(standFreezer);
@@ -24,13 +24,13 @@ public class Main {
         applianceBST.insert(random);
         
         // Search for an appliance
-        boolean found = applianceBST.search(standFreezer);
+        boolean found = applianceBST.search(standFreezerDuplicate);
         System.out.println("Appliance found: " + found); // Should print true
         
         // Print the BST in order
         StrBSTPrinter.printNode(applianceBST.root);
 
-        //applianceBST.remove(gasStove);
+        applianceBST.remove(standerFreezest);
 
 
         applianceBST.getHeight();
@@ -44,11 +44,15 @@ public class Main {
 
         
 
+        
+
        
         //applianceBST.printCategory(candle.getCategory());
         applianceBST.printCategoryBelowPrice("Oven", 500000);
         //System.out.println(random.getCategory());
 
         System.out.println(applianceBST.search(random));
+        
+        StrBSTPrinter.printNode(applianceBST.root);
     }
 }

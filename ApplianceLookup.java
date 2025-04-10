@@ -23,8 +23,7 @@ public class ApplianceLookup {
                 reader = new BufferedReader(new FileReader(filePath));
                 
                 //read and print the header line
-                String header = reader.readLine();
-                System.out.println(header);
+                reader.readLine();
 
                 //while line has something to read
                 while((line = reader.readLine()) != null){
@@ -34,22 +33,18 @@ public class ApplianceLookup {
                     //creates a new appliance where row0 = name, row1 = category, row2 = price
                     Appliance newAppliance = new Appliance(row[1], Float.parseFloat(row[2]), row[0]);
                     applianceTree.insert(newAppliance);
-
-                    //print the inserted line
-                    System.out.println("inserted: " + line);
-
                 }
 
-                //formats and outputs the current tree
+                //formats and outputs what is in the current tree
                 System.out.println("----------------------------------------------------");
                 System.out.println("Current database: ");
                 applianceTree.print();
                 System.out.println();
 
-                //user input variable
-                int input = 0;
+                //creates scanner
                 Scanner scanner = new Scanner(System.in);
                 
+                //main menu
                 System.out.println("Main Menu (enter a number and press enter...)");
                 System.out.println("-------------------------------------------------");
                 System.out.println("1. Check if an appliance exists");
@@ -59,63 +54,68 @@ public class ApplianceLookup {
                 System.out.println("5. Search for appliances in a category within a price range");
                 System.out.println("6. Exit program");
                 System.out.println("-------------------------------------------------");
+
                 //reads user input
-                input = Integer.parseInt(scanner.nextLine());
+                int input = Integer.parseInt(scanner.nextLine());
 
                 //process user input
                 if(input == 1){
-                    //uses user inputs to make a new category
+                    //takes user input to make a new appliance object
                     Appliance newAppliance = applianceCreator(scanner);
 
                     System.out.println("------------------------------------");
-
                     //output message whether if appliance exists or not
                     if(applianceTree.search(newAppliance)){
                         System.out.println(newAppliance.toString() + " exists within the database");
                     }
                     else{
                         System.out.println(newAppliance.toString() + " does not exist within the database");
-                    }
-                        
-                    System.out.println("Press enter to go back to main menu");
-                    System.in.read();
-                        
-                    }
-                    else if(input == 2){
-                         
-                         
-                        //uses user inputs to make a new category
-                        Appliance newAppliance = applianceCreator(scanner);
- 
-                        System.out.println("------------------------------------");
- 
-                        //output message whether if appliance exists or not
-                        if(applianceTree.search(newAppliance)){
-                            System.out.println(newAppliance.toString() + " exists within the database");
-                        }
-                        else{
-                            System.out.println(newAppliance.toString() + " does not exist within the database");
-                        }
-                         
-                         System.out.println("Press any key to go back to main menu");
-                         System.in.read();
-                    }
-                    else if(input == 3){
+                    }    
+                }
+                //adds new appliance
+                else if(input == 2){
+                    //takes user input to make a new appliance object
+                    Appliance newAppliance = applianceCreator(scanner);
+                    //insert the appliance
+                    applianceTree.insert(newAppliance);
+                    System.out.println("------------------------------------");
+                    System.out.println("Appliance added");
+                }
+                //removes an appliance
+                else if(input == 3){
+                    //takes user input to make a new appliance object
+                    Appliance newAppliance = applianceCreator(scanner);
 
-                    }
-                    else if(input == 4){
-                        
-                    }
-                    else if(input == 5){
-                        
-                    }
-                    else if(input == 6){
-                        isRunning = false;
+                    //check if appliance exists
+                    if(applianceTree.search(newAppliance)){
+                        //remove the appliance
+                        applianceTree.remove(newAppliance);
+                        System.out.println("------------------------------------");
+                        System.out.println("Appliance removed");
                     }
                     else{
-                        System.out.println("Please enter a valid number");
-                        System.in.read();
+                        System.out.println("Appliance does not exist in the database");
                     }
+                }
+                else if(input == 4){
+                        
+                }
+                else if(input == 5){
+                        
+                }
+                //stops the program running and skips current iteration
+                else if(input == 6){
+                    isRunning = false;
+                    continue;
+                }
+                else{
+                    System.out.println("Please enter a valid number");
+                }
+
+                //lets the reader read any messages outputted before going back to main menu
+                System.out.println("Going back to main menu in 3s");
+                Thread.sleep(3000);
+                
             } 
             catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
@@ -159,5 +159,4 @@ public class ApplianceLookup {
         //ensures the method always returns a value
         return null; 
     }
-
 }
