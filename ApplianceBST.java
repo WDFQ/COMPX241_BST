@@ -4,7 +4,7 @@ public class ApplianceBST {
 
     // root node of the tree
     public Node root;
-    private int recursiveIdentifier;
+
 
     //enum to keep track of the type of search we are doing
     private enum recursiveIds{
@@ -79,7 +79,7 @@ public class ApplianceBST {
         }
 
         // Checks if the current root is the appliance we are looking for
-        else if (currentRoot.value == a){
+        else if (a.compareTo(currentRoot.value) == 0){
             return true;
         }
         // Do recursive search in the left subtree
@@ -90,7 +90,6 @@ public class ApplianceBST {
         else if (a.compareTo(currentRoot.value) > 0){
             return searchSubtree(currentRoot.right, a);
         }
-
         return false;
     }
 
@@ -136,7 +135,7 @@ public class ApplianceBST {
         if(search(a)){
 
             //while we're not at the goal node
-            while(currentNode.value != a){
+            while(!currentNode.value.equals(a)){
 
                 //move down to the right subtree if the value is larger than current node
                 if (a.compareTo(currentNode.value) > 0){
@@ -301,6 +300,7 @@ public class ApplianceBST {
         recursiveId = recursiveIds.PRICERANGE;
         printCategorySubtree(root, c, min, max);
     }
+
     /**
      * prints all appliances in the tree that belong to a specific category that is above a given price
      * @param c the category to search for

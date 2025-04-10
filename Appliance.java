@@ -31,14 +31,20 @@ public class Appliance {
         return paddedCategory + "|" + paddedName + "|" + price;
     }
 
+    /**
+     * compares two objects decides which comes before the other
+     * @param other the other object to compare to
+     * @return the number returned to decide if this object is before or after
+     */
     public int compareTo(Appliance other) {
 
-        
-        if ((this.category.compareTo(other.category) < 0) || (this.category.compareTo(other.category) > 0)){
-            return  this.category.compareTo(other.category);
+        //compare this category with the other object's category
+        if (this.category.compareTo(other.category) != 0){
+            //compare by category if theyre not the same
+            return this.category.compareTo(other.category);
         }
         else {
-
+            //comparing by price if category is the same
             if (this.price < other.price) {
                 return -1;
             } 
@@ -46,6 +52,7 @@ public class Appliance {
                 return 1;
             } 
             else {
+                //comparing by name if price is the same
                 return this.name.compareTo(other.name);
             }
             

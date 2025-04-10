@@ -48,5 +48,7 @@ public class Main {
         //applianceBST.printCategory(candle.getCategory());
         applianceBST.printCategoryBelowPrice("Oven", 500000);
         //System.out.println(random.getCategory());
+
+        System.out.println(applianceBST.search(random));
     }
 }
