@@ -23,28 +23,21 @@ public class Appliance {
     }   
 
     @Override
-    public String toString() {
+    public String toString(){
         // Adds padding to the category and name
-        String paddedCategory = String.format("%-20s", category); // 15-character padding
-        String paddedName = String.format("%-50s", name);         // 20-character padding
-
+        String paddedCategory = String.format("%-15s", category); //15 character padding
+        String paddedName = String.format("%-50s", name); //20 character padding
         return paddedCategory + "|" + paddedName + "|" + price;
     }
 
-    /**
-     * compares two objects decides which comes before the other
-     * @param other the other object to compare to
-     * @return the number returned to decide if this object is before or after
-     */
     public int compareTo(Appliance other) {
 
-        //compare this category with the other object's category
-        if (this.category.compareTo(other.category) != 0){
-            //compare by category if theyre not the same
-            return this.category.compareTo(other.category);
+        
+        if ((this.category.compareTo(other.category) < 0) || (this.category.compareTo(other.category) > 0)){
+            return  this.category.compareTo(other.category);
         }
         else {
-            //comparing by price if category is the same
+
             if (this.price < other.price) {
                 return -1;
             } 
@@ -52,15 +45,9 @@ public class Appliance {
                 return 1;
             } 
             else {
-                //comparing by name if price is the same
                 return this.name.compareTo(other.name);
             }
             
         }
-        
-        
     }
-    
-    
-
 }

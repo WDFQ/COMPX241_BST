@@ -15,8 +15,6 @@ public class Main {
 
         // Insert appliances into the BST
         applianceBST.insert(standFreezer);
-
-        
         applianceBST.insert(standerFreezest);
         applianceBST.insert(candle);
         applianceBST.insert(gasStove);
@@ -30,8 +28,9 @@ public class Main {
         // Print the BST in order
         StrBSTPrinter.printNode(applianceBST.root);
 
-        applianceBST.remove(standerFreezest);
+        applianceBST.remove(standFreezerDuplicate);
 
+        StrBSTPrinter.printNode(applianceBST.root);
 
         applianceBST.getHeight();
 
@@ -44,8 +43,6 @@ public class Main {
 
         
 
-        
-
        
         //applianceBST.printCategory(candle.getCategory());
         applianceBST.printCategoryBelowPrice("Oven", 500000);
@@ -54,5 +51,9 @@ public class Main {
         System.out.println(applianceBST.search(random));
         
         StrBSTPrinter.printNode(applianceBST.root);
+
+        
+
+
     }
 }

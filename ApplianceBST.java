@@ -122,6 +122,10 @@ public class ApplianceBST {
     }
 
 
+
+
+
+
     /**
      * calls the recursive remove method to remove an appliance from the tree
      * @param a The appliance to be removed
@@ -155,20 +159,22 @@ public class ApplianceBST {
 
             //if the target node is a leaf node
             if(currentNode.left == null && currentNode.right == null){
-                if(currentNode == root){
+                System.out.println("we're in the leaf case");
+                if(currentNode.equals(root)){
                     root = null;
                 }
                 //if we came from the right subtree of the parent node set the right child of the previous node to null
-                if (leftRightIndicator == 0){
+                else if (leftRightIndicator == 0){
                     previousNode.right = null;
                 }
                 //if we came from the left subtree of the parent node set the left child of the previous node to null
-                else if(leftRightIndicator == 1){
+                else{
                     previousNode.left = null;
                 }
             }
             // if the target node has one child
             else if (currentNode.left == null ^ currentNode.right == null) {
+                System.out.println("we're in the one child case");
                 //if the current node came from the right subtree of its parent
                 if (leftRightIndicator == 0) {
                     //if the current node has a left child, set the right child of the parent to the left child of the current node
@@ -192,6 +198,7 @@ public class ApplianceBST {
             }
             //if the target node has two  children
             else {
+                System.out.println("we're in the 2 children case");
                 //Go to the right subtree and find the leftmost node of that subtree
                 previousNode = currentNode; // Track the parent of the leftmost node
                 Node leftMostNode = currentNode.right;
