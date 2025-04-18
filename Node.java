@@ -1,3 +1,7 @@
+
+/**
+ * The node object that stores the directional pointer, and the value the node holds
+ */
 public class Node {
     //appliance object and left and right child nodes
     public Appliance value;

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
-
+/**
+ * class that represents the BST and holds all the functions of the bst
+ */
 public class ApplianceBST {
 
     // root node of the tree
@@ -159,7 +161,6 @@ public class ApplianceBST {
 
             //if the target node is a leaf node
             if(currentNode.left == null && currentNode.right == null){
-                System.out.println("we're in the leaf case");
                 if(currentNode.equals(root)){
                     root = null;
                 }
@@ -174,7 +175,7 @@ public class ApplianceBST {
             }
             // if the target node has one child
             else if (currentNode.left == null ^ currentNode.right == null) {
-                System.out.println("we're in the one child case");
+                
                 //if the current node came from the right subtree of its parent
                 if (leftRightIndicator == 0) {
                     //if the current node has a left child, set the right child of the parent to the left child of the current node

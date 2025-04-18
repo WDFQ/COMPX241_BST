@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
 
+/**
+ * The program for the user to lookup or make changes to the BST1
+ */
 public class ApplianceLookup {
     public static void main(String[] args){
 
